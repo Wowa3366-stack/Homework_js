@@ -1,43 +1,37 @@
-const ingredients = [
-  'Картопля',
-  'Гриби',
-  'Часник',
-  'Помідори',
-  'Зелень',
-  'Приправи',
-];
- const ingredientsList = [];
-const ingredientsEl = document.querySelector('#ingredients');
+const formEl = document.querySelector(".form_color");
 
-for (const ingredient of ingredients) {
-    const item = document.createElement("li");
-    item.textContent = ingredient;
-    ingredientsList.push(item)
-}
-ingredientsEl.append(...ingredientsList);
+formEl.addEventListener("change", (event) => {
+  document.body.style.backgroundColor = event.target.value;
+});
 
-const images = [
-  {
-    url: 'https://images.pexels.com/photos/140134/pexels-photo-140134.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    alt: 'White and Black Long Fur Cat',
-  },
-  {
-    url: 'https://images.pexels.com/photos/213399/pexels-photo-213399.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    alt: 'Orange and White Koi Fish Near Yellow Koi Fish',
-  },
-  {
-    url: 'https://images.pexels.com/photos/219943/pexels-photo-219943.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
-    alt: 'Group of Horses Running',
-  },
-];
+const nameInput = document.querySelector("#name-input");
+const nameOutput = document.querySelector("#name-output");
 
-const galleryEl = document.querySelector('#gallery');
+nameInput.addEventListener("input", (event) => {
+  const value = event.target.value;
+  nameOutput.textContent = value === "" ? "незнайомець" : value;
+});
 
-const markup = images
-  .map(
-    ({ url, alt }) =>
-      `<li><img src="${url}" alt="${alt}" /></li>`
-  )
-  .join('');
+const input = document.querySelector("#validation-input");
 
-galleryEl.insertAdjacentHTML('beforeend', markup);
+input.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") return;
+
+  const requiredLength = Number(event.currentTarget.dataset.length);
+  const actualLength = event.currentTarget.value.length;
+
+  input.classList.remove("valid", "invalid");
+
+  if (actualLength === requiredLength) {
+    input.classList.add("valid");
+  } else {
+    input.classList.add("invalid");
+  }
+});
+
+const range = document.querySelector("#font-size-control");
+const text = document.querySelector("#text");
+
+range.addEventListener("input", (event) => {
+  text.style.fontSize = event.currentTarget.value + "px";
+});
